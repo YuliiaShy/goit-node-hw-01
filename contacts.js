@@ -10,7 +10,8 @@ async function updateContacts (contacts) {
 
 async function listContacts() {
     const data = await fs.readFile(contactsPath);
-    return JSON.parse(data);
+    const result = JSON.parse(data);
+    return result || null;
 }
 
 async function getContactById(contactId) {
@@ -43,7 +44,6 @@ async function removeContact(contactId) {
     await updateContacts(contacts);
     return result;
 }
-
 
 module.exports = {
   listContacts,

@@ -1,8 +1,19 @@
-const argv = require("yargs").argv;
+const { program } = require("commander");
+
+program
+  .option("-a, --action <type>", "choose action")
+  .option("-i, --id <type>", "user id")
+  .option("-n, --name <type>", "user name")
+  .option("-e, --email <type>", "user email")
+  .option("-p, --phone <type>", "user phone");
+
+program.parse(process.argv);
+
+const argv = program.opts();
 
 const contacts = require("./contacts");
 
-async function contactsAction({ action, id, name, email, phone }) {
+async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "listContacts":
       const contactsList = await contacts.listContacts();
@@ -21,11 +32,8 @@ async function contactsAction({ action, id, name, email, phone }) {
       console.log(contactRemove);
       break;
     default:
-      console.log("Unknown action");
+      console.warn("\x1B[31m Unknown action type!");
   }
 }
 
-// contactsAction({ action: "listContacts" });
-// contactsAction({ action: "getContactById", id: "10" });
-// contactsAction({ action: "addContact", name: "Alec Howard", email: "Donec.elementum@scelerisquescelerisquedui.net", phone: "(748) 206-2688" });
-// contactsAction({ action: "removeContact", id: "10" });
+invokeAction(argv);

@@ -15,7 +15,7 @@
     "nodemon": "^2.0.19"
   },
   "dependencies": {
-    "shortid": "^2.2.16",
-    "yargs": "^17.5.1"
+    "commander": "^9.4.0",
+    "shortid": "^2.2.16"
   }
 }
